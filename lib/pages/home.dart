@@ -12,7 +12,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    data = {"dataKey": ModalRoute.of(context)!.settings.arguments};
+    data = data.isNotEmpty ? data : {"dataKey": ModalRoute.of(context)!.settings.arguments};
     print('dataList -> ${data['dataKey']}');
     Map data1 = data['dataKey'];
 
