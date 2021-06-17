@@ -13,8 +13,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : {"dataKey": ModalRoute.of(context)!.settings.arguments};
-    print('dataList -> ${data['dataKey']}');
     Map data1 = data['dataKey'];
+
+    print('dataList -> ${data['dataKey']}');
 
     String bgImage = data1['isDayTime'] ? 'day.jpg' : 'night.jpg';
     Color? bgColor = data1['isDayTime'] ? Colors.blue : Colors.indigo[700];
@@ -33,15 +34,16 @@ class _HomeState extends State<Home> {
               // ignore: deprecated_member_use
               FlatButton.icon(
                   onPressed: () async {
-                     dynamic result = await Navigator.pushNamed(context, '/location');
-                     setState(() {
-                       data1 = {
-                         'time': result['time'],
-                         'location':result['location'],
-                         'isDayTime':result['isDayTime'],
-                         'flag':result['flag'],
-                       };
-                     });
+                    dynamic result =
+                        await Navigator.pushNamed(context, '/location');
+                    setState(() {
+                      data['dataKey'] = {
+                        'time': result['time'],
+                        'location': result['location'],
+                        'isDayTime': result['isDayTime'],
+                        'flag': result['flag'],
+                      };
+                    });
                   },
                   icon: Icon(
                     Icons.edit_location,
@@ -58,7 +60,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    data1['location'],
+                    data['dataKey']['location'],
                     style: TextStyle(
                         fontSize: 28.0,
                         letterSpacing: 2.0,
@@ -70,7 +72,7 @@ class _HomeState extends State<Home> {
                 height: 20,
               ),
               Text(
-                data1['time'],
+                data['dataKey']['time'],
                 style: TextStyle(
                     fontSize: 66,
                     letterSpacing: 2.0,
